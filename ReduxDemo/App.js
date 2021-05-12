@@ -37,7 +37,7 @@ const sub = {
 };
 
 // Reducer
-const resultReducer = (result = {number: 1}, action) => {
+const resultReducer = (result = appState.result, action) => {
   switch (action.type) {
     case 'ADD':
       return {
@@ -52,7 +52,7 @@ const resultReducer = (result = {number: 1}, action) => {
   }
 };
 
-const messageReducer = (message = {error: ''}, action) => {
+const messageReducer = (message = appState.message, action) => {
   switch (action.type) {
     case 'LESS_THAN_ZERO':
       return {
@@ -63,13 +63,10 @@ const messageReducer = (message = {error: ''}, action) => {
   }
 };
 
-const reducers = combineReducers(
-  {
-    result: resultReducer,
-    message: messageReducer,
-  },
-  appState,
-);
+const reducers = combineReducers({
+  result: resultReducer,
+  message: messageReducer,
+});
 
 // Store
 const store = createStore(reducers);
