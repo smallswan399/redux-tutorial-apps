@@ -14,68 +14,74 @@ import AddView from './components/AddView';
 import Counter from './components/Counter';
 import TaskFlatList from './components/TaskFlatList';
 import {createStore, combineReducers} from 'redux';
+import {store} from './redux/store';
 
-// State
-let appState = {
-  result: {
-    number: 1,
-  },
-  message: {
-    error: '',
-  },
-};
-
-// Action
-const add = {
-  type: 'ADD',
-  value: 1,
-};
-
-const sub = {
-  type: 'SUB',
-  value: 1,
-};
-
-// Reducer
-const resultReducer = (result = appState.result, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return {
-        number: result.number + 1,
-      };
-    case 'SUB':
-      return {
-        number: result.number - 1,
-      };
-    default:
-      return result;
-  }
-};
-
-const messageReducer = (message = appState.message, action) => {
-  switch (action.type) {
-    case 'LESS_THAN_ZERO':
-      return {
-        error: 'LESS_THAN_ZERO',
-      };
-    default:
-      return message;
-  }
-};
-
-const reducers = combineReducers({
-  result: resultReducer,
-  message: messageReducer,
+store.dispatch({
+  type: 'ADD_TASK',
+  payload: {title: 'add by dispatch', isFinished: true},
 });
 
-// Store
-const store = createStore(reducers);
+// // State
+// let appState = {
+//   result: {
+//     number: 1,
+//   },
+//   message: {
+//     error: '',
+//   },
+// };
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
-store.dispatch(add);
-store.dispatch({type: 'LESS_THAN_ZERO'});
+// // Action
+// const add = {
+//   type: 'ADD',
+//   value: 1,
+// };
+
+// const sub = {
+//   type: 'SUB',
+//   value: 1,
+// };
+
+// // Reducer
+// const resultReducer = (result = appState.result, action) => {
+//   switch (action.type) {
+//     case 'ADD':
+//       return {
+//         number: result.number + 1,
+//       };
+//     case 'SUB':
+//       return {
+//         number: result.number - 1,
+//       };
+//     default:
+//       return result;
+//   }
+// };
+
+// const messageReducer = (message = appState.message, action) => {
+//   switch (action.type) {
+//     case 'LESS_THAN_ZERO':
+//       return {
+//         error: 'LESS_THAN_ZERO',
+//       };
+//     default:
+//       return message;
+//   }
+// };
+
+// const reducers = combineReducers({
+//   result: resultReducer,
+//   message: messageReducer,
+// });
+
+// // Store
+// const store = createStore(reducers);
+
+// store.subscribe(() => {
+//   console.log(store.getState());
+// });
+// store.dispatch(add);
+// store.dispatch({type: 'LESS_THAN_ZERO'});
 
 export default class Todo extends Component {
   constructor(props) {

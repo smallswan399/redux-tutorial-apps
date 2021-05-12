@@ -9,20 +9,20 @@ const appState = {
   ],
 };
 
-const taskListReducer = (taskList = [], action) => {
+const tasksReducer = (taskList = appState.tasks, action) => {
   switch (action.type) {
-    case 'ADD':
+    case 'ADD_TASK':
       return [...taskList, action.payload];
-    case 'REMOVE':
+    case 'REMOVE_TASK':
       return taskList.filter((t, i) => i !== action.payload);
-    case 'DONE':
+    case 'DONE_TASK':
       const newList = [...taskList];
       newList[action.payload] = {
         ...newList[action.payload],
         isFinished: true,
       };
       return newList;
-    case 'UNDONE':
+    case 'UNDONE_TASK':
       const newList2 = [...taskList];
       newList2[action.payload] = {
         ...newList2[action.payload],
@@ -30,16 +30,16 @@ const taskListReducer = (taskList = [], action) => {
       };
       return newList2;
     default:
-      taskList;
+      return taskList;
   }
 };
 
-const reducers = combineReducers({tasks: taskListReducer});
-export const store = createStore(reducers, appState);
+const reducers = combineReducers({tasks: tasksReducer});
+export const store = createStore(reducers);
 store.subscribe(() => {
   console.log(store.getState());
 });
-store.dispatch({
-  type: 'ADD',
-  payload: {title: 'add by dispatch', isFinished: true},
-});
+// store.dispatch({
+//   type: 'ADD',
+//   payload: {title: 'add by dispatch', isFinished: true},
+// });
