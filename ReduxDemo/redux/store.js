@@ -2,10 +2,10 @@ import {combineReducers, createStore} from 'redux';
 
 const appState = {
   tasks: [
-    {title: 'Go to the office', isFinished: true},
-    {title: 'Prepare tasks for today', isFinished: false},
-    {title: 'Team meeting', isFinished: false},
-    {title: 'Commit tasks changed', isFinished: false},
+    {title: '0 Go to the office', isFinished: true},
+    {title: '1 Prepare tasks for today', isFinished: false},
+    {title: '2 Team meeting', isFinished: false},
+    {title: '3 Commit tasks changed', isFinished: false},
   ],
 };
 
@@ -39,7 +39,3 @@ export const store = createStore(reducers);
 store.subscribe(() => {
   console.log(store.getState());
 });
-// store.dispatch({
-//   type: 'ADD',
-//   payload: {title: 'add by dispatch', isFinished: true},
-// });

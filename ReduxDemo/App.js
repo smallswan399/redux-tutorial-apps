@@ -21,6 +21,11 @@ store.dispatch({
   payload: {title: 'add by dispatch', isFinished: true},
 });
 
+store.dispatch({
+  type: 'REMOVE_TASK',
+  payload: 0,
+});
+
 // // State
 // let appState = {
 //   result: {
