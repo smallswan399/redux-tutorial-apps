@@ -10,7 +10,7 @@ const appState = {
 };
 
 const taskListReducer = (taskList = [], action) => {
-  switch (action.key) {
+  switch (action.type) {
     case 'ADD':
       return [...taskList, action.payload];
     case 'REMOVE':
