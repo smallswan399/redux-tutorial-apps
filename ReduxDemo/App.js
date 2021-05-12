@@ -52,7 +52,7 @@ const resultReducer = (result = {number: 1}, action) => {
   }
 };
 
-const messageReducer = (message = '', action) => {
+const messageReducer = (message = {error: ''}, action) => {
   switch (action.type) {
     case 'LESS_THAN_ZERO':
       return {
@@ -63,10 +63,13 @@ const messageReducer = (message = '', action) => {
   }
 };
 
-const reducers = combineReducers({
-  result: resultReducer,
-  message: messageReducer,
-});
+const reducers = combineReducers(
+  {
+    result: resultReducer,
+    message: messageReducer,
+  },
+  appState,
+);
 
 // Store
 const store = createStore(reducers);
