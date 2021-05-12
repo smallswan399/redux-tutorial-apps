@@ -9,28 +9,28 @@ const appState = {
   ],
 };
 
-const tasksReducer = (taskList = appState.tasks, action) => {
+const tasksReducer = (tasks = appState.tasks, action) => {
   switch (action.type) {
     case 'ADD_TASK':
-      return [...taskList, action.payload];
+      return [...tasks, action.payload];
     case 'REMOVE_TASK':
-      return taskList.filter((t, i) => i !== action.payload);
+      return tasks.filter((t, i) => i !== action.payload);
     case 'DONE_TASK':
-      const newList = [...taskList];
+      const newList = [...tasks];
       newList[action.payload] = {
         ...newList[action.payload],
         isFinished: true,
       };
       return newList;
     case 'UNDONE_TASK':
-      const newList2 = [...taskList];
+      const newList2 = [...tasks];
       newList2[action.payload] = {
         ...newList2[action.payload],
         isFinished: false,
       };
       return newList2;
     default:
-      return taskList;
+      return tasks;
   }
 };
 
