@@ -18,14 +18,16 @@ class TaskFlatList extends Component {
   }
 
   renderItem = ({item, index}) => {
-    const {onFinishedItem, onDeleteItem} = this.props;
+    const {onFinishedItem, onDeleteItem, onUnFinishedItem} = this.props;
 
     return (
       <View style={styles.itemContainer}>
         <View>
           <TouchableOpacity
             style={{marginTop: -2}}
-            onPress={() => onFinishedItem(index)}>
+            onPress={() =>
+              item.isFinished ? onUnFinishedItem(index) : onFinishedItem(index)
+            }>
             <Text> {item.isFinished ? '✅' : '🕘'} </Text>
           </TouchableOpacity>
         </View>
@@ -84,6 +86,8 @@ export default connect(
     return {
       onFinishedItem: index => dispatch({type: 'DONE_TASK', payload: index}),
       onDeleteItem: index => dispatch({type: 'REMOVE_TASK', payload: index}),
+      onUnFinishedItem: index =>
+        dispatch({type: 'UNDONE_TASK', payload: index}),
     };
   },
 )(TaskFlatList);
