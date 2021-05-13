@@ -74,8 +74,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(state => {
-  return {
-    listData: state.tasks,
-  };
-})(TaskFlatList);
+export default connect(
+  state => {
+    return {
+      listData: state.tasks,
+    };
+  },
+  dispatch => {
+    return {
+      onFinishedItem: index => dispatch({type: 'DONE_TASK', payload: index}),
+      onDeleteItem: index => dispatch({type: 'REMOVE_TASK', payload: index}),
+    };
+  },
+)(TaskFlatList);
