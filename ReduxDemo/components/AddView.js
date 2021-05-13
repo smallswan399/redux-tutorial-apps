@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {store} from '../redux/store';
 import {
   AppRegistry,
   StyleSheet,
@@ -17,7 +18,14 @@ export default class AddView extends Component {
   }
 
   onAddNewTask = () => {
-    this.props.onAddNewTask(this.state.newTaskName);
+    store.dispatch({
+      type: 'ADD_TASK',
+      payload: {
+        title: this.state.newTaskName,
+        isFinished: false,
+      },
+    });
+    // this.props.onAddNewTask(this.state.newTaskName);
     this.setState({newTaskName: ''});
   };
 
