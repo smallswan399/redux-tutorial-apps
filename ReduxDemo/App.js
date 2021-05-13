@@ -15,16 +15,17 @@ import Counter from './components/Counter';
 import TaskFlatList from './components/TaskFlatList';
 import {createStore, combineReducers} from 'redux';
 import {store} from './redux/store';
+import {Provider} from 'react-redux';
 
-store.dispatch({
-  type: 'ADD_TASK',
-  payload: {title: 'add by dispatch', isFinished: true},
-});
+// store.dispatch({
+//   type: 'ADD_TASK',
+//   payload: {title: 'add by dispatch', isFinished: true},
+// });
 
-store.dispatch({
-  type: 'REMOVE_TASK',
-  payload: 0,
-});
+// store.dispatch({
+//   type: 'REMOVE_TASK',
+//   payload: 0,
+// });
 
 // // State
 // let appState = {
@@ -109,31 +110,29 @@ export default class Todo extends Component {
     this.setState({data: newTaskList});
   };
 
-  onFinishedItem = index => {
-    let newTaskList = [...this.state.data];
-    newTaskList[index] = {
-      ...newTaskList[index],
-      isFinished: true,
-    };
-    this.setState({data: newTaskList});
-  };
+  // onFinishedItem = index => {
+  //   let newTaskList = [...this.state.data];
+  //   newTaskList[index] = {
+  //     ...newTaskList[index],
+  //     isFinished: true,
+  //   };
+  //   this.setState({data: newTaskList});
+  // };
 
-  onDeleteItem = index => {
-    let newTaskList = this.state.data.filter((item, i) => i !== index);
-    this.setState({data: newTaskList});
-  };
+  // onDeleteItem = index => {
+  //   let newTaskList = this.state.data.filter((item, i) => i !== index);
+  //   this.setState({data: newTaskList});
+  // };
 
   render() {
     return (
-      <View style={styles.container}>
-        <AddView onAddNewTask={this.onAddNewTask} />
-        <Counter />
-        <TaskFlatList
-          listData={this.state.data}
-          onFinishedItem={this.onFinishedItem}
-          onDeleteItem={this.onDeleteItem}
-        />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AddView onAddNewTask={this.onAddNewTask} />
+          <Counter />
+          <TaskFlatList />
+        </View>
+      </Provider>
     );
   }
 }

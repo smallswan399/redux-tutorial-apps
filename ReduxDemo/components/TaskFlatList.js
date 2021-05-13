@@ -10,7 +10,9 @@ import {
   View,
 } from 'react-native';
 
-export default class TaskFlatList extends Component {
+import {connect} from 'react-redux';
+
+class TaskFlatList extends Component {
   constructor(props) {
     super(props);
   }
@@ -24,7 +26,7 @@ export default class TaskFlatList extends Component {
           <TouchableOpacity
             style={{marginTop: -2}}
             onPress={() => onFinishedItem(index)}>
-            <Text> {item.isFinished ? `✅` : `🕘`} </Text>
+            <Text> {item.isFinished ? '✅' : '🕘'} </Text>
           </TouchableOpacity>
         </View>
         <View style={{flex: 1}}>
@@ -34,7 +36,7 @@ export default class TaskFlatList extends Component {
           <TouchableOpacity
             style={{marginTop: -2}}
             onPress={() => onDeleteItem(index)}>
-            <Text>{`❌`}</Text>
+            <Text>{'❌'}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -42,6 +44,7 @@ export default class TaskFlatList extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <FlatList
         data={this.props.listData}
@@ -70,3 +73,9 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
+
+export default connect(state => {
+  return {
+    listData: state.tasks,
+  };
+})(TaskFlatList);
