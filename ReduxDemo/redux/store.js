@@ -1,4 +1,7 @@
 import {combineReducers, createStore} from 'redux';
+// import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-community/async-storage';
+import {persistStore, persistReducer} from 'redux-persist';
 
 const appState = {
   tasks: [
@@ -35,7 +38,17 @@ const tasksReducer = (tasks = appState.tasks, action) => {
 };
 
 const reducers = combineReducers({tasks: tasksReducer});
-export const store = createStore(reducers);
+
+const persistedReducer = persistReducer(
+  {
+    key: 'root',
+    storage: AsyncStorage,
+  },
+  reducers,
+);
+
+export const store = createStore(persistedReducer);
 store.subscribe(() => {
   console.log(store.getState());
 });
+export const persistor = persistStore(store);

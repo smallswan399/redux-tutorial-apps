@@ -14,9 +14,9 @@ import AddView from './components/AddView';
 import Counter from './components/Counter';
 import TaskFlatList from './components/TaskFlatList';
 import {createStore, combineReducers} from 'redux';
-import {store} from './redux/store';
+import {store, persistor} from './redux/store';
 import {Provider} from 'react-redux';
-
+import {PersistGate} from 'redux-persist/integration/react';
 // store.dispatch({
 //   type: 'ADD_TASK',
 //   payload: {title: 'add by dispatch', isFinished: true},
@@ -127,11 +127,13 @@ export default class Todo extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <AddView onAddNewTask={this.onAddNewTask} />
-          <Counter />
-          <TaskFlatList />
-        </View>
+        <PersistGate loading={null} persistor={persistor}>
+          <View style={styles.container}>
+            <AddView onAddNewTask={this.onAddNewTask} />
+            <Counter />
+            <TaskFlatList />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }
